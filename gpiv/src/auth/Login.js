@@ -56,8 +56,12 @@ submitForm = event => {
   event.preventDefault();
   const endpoint = 'http://localhost:5000/api/auth/login';
 
-  axios.post(endpoint, this.state).then(res => {
-    console.log(res);
+  axios
+    .post(endpoint, this.state)
+    .then(res => {
+  // 13. after console.log(res); to make sure you're getting data when logging in
+      localStorage.setItem('jwt', res.data.token); //you can to make sure this is working in the console -> application -> local storage. Should return a jwt key w/a value
+      this.props.history.push('/users'); // 16b. directs you to list of users after logging in 
   })
     .catch(err => {
     console.error('Login Error', err)
